@@ -44,10 +44,7 @@ class Coupon
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $QR_code = null;
-
-    /**
-     * @var Collection<int, Acheteur>
-     */
+    
     #[ORM\ManyToOne(targetEntity: Acheteur::class, inversedBy: 'coupons')]
     private ?Acheteur $acheteur = null;
 

@@ -2,6 +2,9 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Acheteur;
+use App\Entity\Association;
+use App\Entity\Commerce;
 use App\Entity\Coupon;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -11,11 +14,75 @@ class CouponFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        $commerce1 = $this->getReference('Décathlon');
+        $decathlon = $this->getReference('Decathlon', Commerce::class);
+        $kartExpo = $this->getReference('Kart Expo', Commerce::class);
+        $enfantsTerribles = $this->getReference('Enfants Terribles', Commerce::class);
+        $laFromotte = $this->getReference('La Fromotte', Commerce::class);
+        $getOut = $this->getReference('Get OUT !', Commerce::class);
+        $boucherie = $this->getReference('La Boucherie Rennaise', Commerce::class);
+        $roazhonPark = $this->getReference('Roazhon Park', Commerce::class);
+        $assoRoller = $this->getReference('Roller Derby Rennes', Association::class);
+        $assoFoot = $this->getReference('USBP US Football', Association::class);
+        $assoHandi = $this->getReference('Handisport Rennes Club', Association::class);
+        $assoBadminton = $this->getReference('Rec Badminton', Association::class);
+        $assoJudo = $this->getReference('Passion Judo 35', Association::class);
+        $cannelle = $this->getReference('Cannelle', Acheteur::class);
+        $vincent = $this->getReference('Vincent', Acheteur::class);
+        $francois = $this->getReference('Francois', Acheteur::class);
+        $lea = $this->getReference('Lea', Acheteur::class);
+        $denis = $this->getReference('Denis', Acheteur::class);
 
-        $coupon = new Coupon();
-        $coupon -> setTitre('10€ de réduction sur les protections de rollers ');
-        $coupon -> setCommerce($commerce1);
+        $couponDecathlon = new Coupon();
+        $couponDecathlon -> setTitre('10€ de réduction sur les protections de rollers ');
+        $couponDecathlon -> setCommerce($decathlon);
+        $couponDecathlon -> setAssociation($assoRoller);
+        $couponDecathlon -> setVille('Chantepie');
+        $couponDecathlon -> setAdresse('3 rue du Moulin');
+        $couponDecathlon -> setCodePostal('35135');
+        $couponDecathlon -> setConditions('Sous conditions de 40€ d\'achats');
+        $couponDecathlon -> setDateCreation(new \DateTimeImmutable('2024-11-05'));
+        $couponDecathlon -> setFinValidite(new \DateTimeImmutable('2024-12-31'));
+        $couponDecathlon -> setPrix(2.50);
+        $manager -> persist($couponDecathlon);
+
+        $couponKart = new Coupon();
+        $couponKart -> setTitre('1 partie offerte !');
+        $couponKart -> setCommerce($kartExpo);
+        $couponKart -> setAssociation($assoFoot);
+        $couponKart -> setVille('Bruz');
+        $couponKart -> setAdresse('11 rue la Haie Gautrais');
+        $couponKart -> setCodePostal('35170');
+        $couponKart -> setConditions('Pour 2 parties achetées');
+        $couponKart -> setDateCreation(new \DateTimeImmutable('2024-10-15'));
+        $couponKart -> setFinValidite(new \DateTimeImmutable('2024-12-31'));
+        $couponKart -> setPrix(5);
+        $manager -> persist($couponKart);
+
+        $couponCafe = new Coupon();
+        $couponCafe -> setTitre('1 boisson et une pâtisserie en plus');
+        $couponCafe -> setCommerce($enfantsTerribles);
+        $couponCafe -> setAssociation($assoHandi);
+        $couponCafe -> setVille('Rennes');
+        $couponCafe -> setAdresse('30 rue d\'Antrain');
+        $couponCafe -> setCodePostal('35000');
+        $couponCafe -> setConditions('Pour la réservation d\'un brunch');
+        $couponCafe -> setDateCreation(new \DateTimeImmutable('2024-12-01'));
+        $couponCafe -> setFinValidite(new \DateTimeImmutable('2024-12-31'));
+        $couponCafe -> setPrix(2.50);
+        $manager -> persist($couponCafe);
+
+        $couponFromage = new Coupon();
+        $couponFromage -> setTitre('1 fromage offert');
+        $couponFromage -> setCommerce($laFromotte);
+        $couponFromage -> setAssociation($assoJudo);
+        $couponFromage -> setVille('Rennes');
+        $couponFromage -> setAdresse('4 Avenue Jorge Semprun');
+        $couponFromage -> setCodePostal('35000');
+        $couponFromage -> setConditions('Pour l\'achat d\'un plateau de fromages à composer');
+        $couponFromage -> setDateCreation(new \DateTimeImmutable('2024-12-10'));
+        $couponFromage -> setFinValidite(new \DateTimeImmutable('2024-12-24'));
+        $couponFromage -> setPrix(3);
+        $manager -> persist($couponFromage);
 
         $manager->flush();
     }

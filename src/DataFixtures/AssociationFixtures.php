@@ -13,50 +13,66 @@ class AssociationFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $association = new Association();
-        $association -> setNom('Roller Derby Rennes');
-        $association -> setEmail('rollerdernnes@gmail.com');
-        $password= $this->userPasswordHasher->hashPassword($association, 'mdprollerderby');
-        $association -> setAdresse('2 rue du Bosphore');
-        $association -> setVille('Rennes');
-        $association -> setCodePostal('35200');
-        $association -> setSiret('75350777100032');
+        $assoRoller = new Association();
+        $assoRoller -> setNom('Roller Derby Rennes');
+        $assoRoller -> setEmail('rollerdernnes@gmail.com');
+        $password= $this->userPasswordHasher->hashPassword($assoRoller, 'mdprollerderby');
+        $assoRoller -> setPassword($password);
+        $assoRoller -> setAdresse('2 rue du Bosphore');
+        $assoRoller -> setVille('Rennes');
+        $assoRoller -> setCodePostal('35200');
+        $assoRoller -> setSiret('75350777100032');
+        $manager -> persist($assoRoller);
 
-        $association = new Association();
-        $association -> setNom('USBP US Football');
-        $association -> setEmail('foot@gmail.com');
-        $password= $this->userPasswordHasher->hashPassword($association, 'mdpfoot');
-        $association -> setAdresse('2 rue de Rennes');
-        $association -> setVille('Bédée');
-        $association -> setCodePostal('35137');
-        $association -> setSiret('85298638900017');
+        $assoFoot = new Association();
+        $assoFoot -> setNom('USBP US Football');
+        $assoFoot -> setEmail('foot@gmail.com');
+        $password= $this->userPasswordHasher->hashPassword($assoFoot, 'mdpfoot');
+        $assoFoot->setPassword($password);
+        $assoFoot -> setAdresse('2 rue de Rennes');
+        $assoFoot -> setVille('Bédée');
+        $assoFoot -> setCodePostal('35137');
+        $assoFoot -> setSiret('85298638900017');
+        $manager -> persist($assoFoot );
 
-        $association = new Association();
-        $association -> setNom('Handisport Rennes Club');
-        $association -> setEmail('handisport@gmail.com');
-        $password= $this->userPasswordHasher->hashPassword($association, 'mdphandisport');
-        $association -> setAdresse('12 Allée le Roséno');
-        $association -> setVille('Rennes');
-        $association -> setCodePostal('35200');
-        $association -> setSiret('32342711200020');
+        $assoHandi = new Association();
+        $assoHandi -> setNom('Handisport Rennes Club');
+        $assoHandi -> setEmail('handisport@gmail.com');
+        $password= $this->userPasswordHasher->hashPassword($assoHandi, 'mdphandisport');
+        $assoHandi->setPassword($password);
+        $assoHandi -> setAdresse('12 Allée le Roséno');
+        $assoHandi -> setVille('Rennes');
+        $assoHandi -> setCodePostal('35200');
+        $assoHandi -> setSiret('32342711200020');
+        $manager -> persist($assoHandi);
 
-        $association = new Association();
-        $association -> setNom('Rec Badminton');
-        $association -> setEmail('badminton@gmail.com');
-        $password= $this->userPasswordHasher->hashPassword($association, 'mdpbadminton');
-        $association -> setAdresse('23 Avenue Professeur Charles Foulon');
-        $association -> setVille('Rennes');
-        $association -> setCodePostal('35700');
-        $association -> setSiret('48895734100032');
+        $assoBadminton = new Association();
+        $assoBadminton -> setNom('Rec Badminton');
+        $assoBadminton -> setEmail('badminton@gmail.com');
+        $password= $this->userPasswordHasher->hashPassword($assoBadminton, 'mdpbadminton');
+        $assoBadminton->setPassword($password);
+        $assoBadminton -> setAdresse('23 Avenue Professeur Charles Foulon');
+        $assoBadminton -> setVille('Rennes');
+        $assoBadminton -> setCodePostal('35700');
+        $assoBadminton -> setSiret('48895734100032');
+        $manager -> persist($assoBadminton);
 
-        $association = new Association();
-        $association -> setNom('Passion Judo 35');
-        $association -> setEmail('judo@gmail.com');
-        $password= $this->userPasswordHasher->hashPassword($association, 'mdpjudo');
-        $association -> setAdresse('124 rue Eugène Pottier');
-        $association -> setVille('Rennes');
-        $association -> setCodePostal('35000');
-        $association -> setSiret('95356280800022');
+        $assoJudo = new Association();
+        $assoJudo -> setNom('Passion Judo 35');
+        $assoJudo -> setEmail('judo@gmail.com');
+        $password= $this->userPasswordHasher->hashPassword($assoJudo, 'mdpjudo');
+        $assoJudo->setPassword($password);
+        $assoJudo -> setAdresse('124 rue Eugène Pottier');
+        $assoJudo -> setVille('Rennes');
+        $assoJudo -> setCodePostal('35000');
+        $assoJudo -> setSiret('95356280800022');
+        $manager -> persist($assoJudo);
+
+        $this -> addReference('Roller Derby Rennes', $assoRoller);
+        $this -> addReference('USBP US Football', $assoFoot);
+        $this -> addReference('Handisport Rennes Club', $assoHandi);
+        $this -> addReference('Rec Badminton', $assoBadminton);
+        $this -> addReference('Passion Judo 35', $assoJudo);
 
         $manager->flush();
     }

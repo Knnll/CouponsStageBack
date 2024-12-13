@@ -13,55 +13,66 @@ class AcheteurFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $acheteur = new Acheteur();
-        $acheteur -> setNom('Hardy');
-        $acheteur -> setPrenom('Cannelle');
-        $acheteur -> setEmail('cannelle@gmail.com');
-        $password = $this->userPasswordHasher->hashPassword($acheteur, 'mdpcannelle');
-        $acheteur -> setVille('Rennes');
-        $acheteur -> setCodePostal('35000');
-        $acheteur -> setDateNaissance(new \DateTimeImmutable('1999-07-02'));
-        $manager -> persist($acheteur);
+        $cannelle = new Acheteur();
+        $cannelle -> setNom('Hardy');
+        $cannelle -> setPrenom('Cannelle');
+        $cannelle -> setEmail('cannelle@gmail.com');
+        $password = $this->userPasswordHasher->hashPassword($cannelle, 'mdpcannelle');
+        $cannelle -> setPassword($password);
+        $cannelle -> setVille('Rennes');
+        $cannelle -> setCodePostal('35000');
+        $cannelle -> setDateNaissance(new \DateTimeImmutable('1999-07-02'));
+        $manager -> persist($cannelle);
 
-        $acheteur = new Acheteur();
-        $acheteur -> setNom('Monssieur');
-        $acheteur -> setPrenom('Vincent');
-        $acheteur -> setEmail('vincent@gmail.com');
-        $password = $this->userPasswordHasher->hashPassword($acheteur, 'mdpvincent');
-        $acheteur -> setVille('Rennes');
-        $acheteur -> setCodePostal('35000');
-        $acheteur -> setDateNaissance(new \DateTimeImmutable('1988-06-23'));
-        $manager -> persist($acheteur);
+        $vincent = new Acheteur();
+        $vincent -> setNom('Monssieur');
+        $vincent -> setPrenom('Vincent');
+        $vincent -> setEmail('vincent@gmail.com');
+        $password = $this->userPasswordHasher->hashPassword($vincent, 'mdpvincent');
+        $vincent ->setPassword($password);
+        $vincent -> setVille('Rennes');
+        $vincent -> setCodePostal('35000');
+        $vincent -> setDateNaissance(new \DateTimeImmutable('1988-06-23'));
+        $manager -> persist($vincent);
 
-        $acheteur = new Acheteur();
-        $acheteur -> setNom('Morin');
-        $acheteur -> setPrenom('François');
-        $acheteur -> setEmail('françois@gmail.com');
-        $password = $this->userPasswordHasher->hashPassword($acheteur, 'mdpfrançois');
-        $acheteur -> setVille('Rennes');
-        $acheteur -> setCodePostal('35000');
-        $acheteur -> setDateNaissance(new \DateTimeImmutable('1971-03-18'));
-        $manager -> persist($acheteur);
+        $francois = new Acheteur();
+        $francois -> setNom('Morin');
+        $francois -> setPrenom('Francois');
+        $francois -> setEmail('françois@gmail.com');
+        $password = $this->userPasswordHasher->hashPassword($francois, 'mdpfrançois');
+        $francois ->setPassword($password);
+        $francois -> setVille('Rennes');
+        $francois -> setCodePostal('35000');
+        $francois -> setDateNaissance(new \DateTimeImmutable('1971-03-18'));
+        $manager -> persist($francois);
 
-        $acheteur = new Acheteur();
-        $acheteur -> setNom('Thomas');
-        $acheteur -> setPrenom('Léa');
-        $acheteur -> setEmail('léa@gmail.com');
-        $password = $this->userPasswordHasher->hashPassword($acheteur, 'mdpléa');
-        $acheteur -> setVille('Rennes');
-        $acheteur -> setCodePostal('35000');
-        $acheteur -> setDateNaissance(new \DateTimeImmutable('1994-08-29'));
-        $manager -> persist($acheteur);
+        $lea = new Acheteur();
+        $lea -> setNom('Thomas');
+        $lea -> setPrenom('Lea');
+        $lea -> setEmail('léa@gmail.com');
+        $password = $this->userPasswordHasher->hashPassword($lea, 'mdpléa');
+        $lea ->setPassword($password);
+        $lea -> setVille('Rennes');
+        $lea -> setCodePostal('35000');
+        $lea -> setDateNaissance(new \DateTimeImmutable('1994-08-29'));
+        $manager -> persist($lea);
 
-        $acheteur = new Acheteur();
-        $acheteur -> setNom('Sanchez');
-        $acheteur -> setPrenom('Denis');
-        $acheteur -> setEmail('denis@gmail.com');
-        $password = $this->userPasswordHasher->hashPassword($acheteur, 'mdpdenis');
-        $acheteur -> setVille('Rennes');
-        $acheteur -> setCodePostal('35000');
-        $acheteur -> setDateNaissance(new \DateTimeImmutable('1981-05-04'));
-        $manager -> persist($acheteur);
+        $denis = new Acheteur();
+        $denis -> setNom('Sanchez');
+        $denis -> setPrenom('Denis');
+        $denis -> setEmail('denis@gmail.com');
+        $password = $this->userPasswordHasher->hashPassword($denis, 'mdpdenis');
+        $denis ->setPassword($password);
+        $denis -> setVille('Rennes');
+        $denis -> setCodePostal('35000');
+        $denis -> setDateNaissance(new \DateTimeImmutable('1981-05-04'));
+        $manager -> persist($denis);
+
+        $this -> addReference('Cannelle', $cannelle);
+        $this -> addReference('Vincent', $vincent);
+        $this -> addReference('Francois', $francois);
+        $this -> addReference('Lea', $lea);
+        $this -> addReference('Denis', $denis);
 
         $manager->flush();
     }

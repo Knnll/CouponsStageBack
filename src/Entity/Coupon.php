@@ -46,13 +46,21 @@ class Coupon
     private ?string $QR_code = null;
     
     #[ORM\ManyToOne(targetEntity: Acheteur::class, inversedBy: 'coupons')]
-    private ?Acheteur $acheteur = null;
+    private Collection $acheteurs;
 
     #[ORM\ManyToOne(targetEntity: Commerce::class, inversedBy: 'coupons')]
     private ?Commerce $commerce = null;
 
     #[ORM\ManyToOne(inversedBy: 'coupons')]
     private ?Association $association = null;
+
+    /**
+     * @param Collection $acheteurs
+     */
+    public function __construct()
+    {
+        $this->acheteurs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -170,15 +178,15 @@ class Coupon
     /**
      * @return Collection<int, Acheteur>
      */
-    public function getAcheteur(): Collection
+    public function getAcheteurs(): Collection
     {
-        return $this->acheteur;
+        return $this->acheteurs;
     }
 
     public function addAcheteur(Acheteur $acheteur): static
     {
-        if (!$this->acheteur->contains($acheteur)) {
-            $this->acheteur->add($acheteur);
+        if (!$this->acheteurs->contains($acheteur)) {
+            $this->acheteurs->add($acheteur);
             $acheteur->setCoupon($this);
         }
 
@@ -187,7 +195,7 @@ class Coupon
 
     public function removeAcheteur(Acheteur $acheteur): static
     {
-        if ($this->acheteur->removeElement($acheteur)) {
+        if ($this->acheteurs->removeElement($acheteur)) {
             // set the owning side to null (unless already changed)
             if ($acheteur->getCoupon() === $this) {
                 $acheteur->setCoupon(null);
@@ -197,6 +205,7 @@ class Coupon
         return $this;
     }
 
+    /*
     public function getCoupons(): ?Association
     {
         return $this->coupons;
@@ -208,6 +217,7 @@ class Coupon
 
         return $this;
     }
+    */
 
     public function getCommerce(): ?Commerce
     {

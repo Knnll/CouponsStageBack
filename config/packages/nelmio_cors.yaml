@@ -3,8 +3,8 @@ nelmio_cors:
     defaults:
         # autorise tous les sous-domaine (ex: https://.*.exemple.com')
         origin_regex: true
-        # variable d'environnement (port 8000) et on autorise le frontend Angular
-        allow_origin: ['%env(CORS_ALLOW_ORIGIN)%', 'http://localhost:4200']
+        # variable d'environnement (on autorise tout dans un premier temps)
+        allow_origin: ['*']
         # on autorise le frontend Angular
         # liste des méthodes HTTP autorisées pour les requêtes cross-origin
         allow_methods: ['GET', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'DELETE']
@@ -14,4 +14,8 @@ nelmio_cors:
         # Temps en seconde pendant lequel le navigateur met en cache la politique CORS
         max_age: 3600
     paths:
-        '^/': null
+        '^/api/':
+            allow_origin: [ '*' ]
+            allow_headers: [ 'Content-Type', 'Authorization' ]
+            allow_methods: [ 'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS' ]
+            max_age: 3600

@@ -10,6 +10,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: AssociationRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
@@ -19,39 +20,49 @@ class Association implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['getDetailCoupon', 'getCoupons'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
+    #[Groups(['getDetailCoupon', 'getCoupons'])]
     private ?string $email = null;
 
     /**
      * @var list<string> The user roles
      */
     #[ORM\Column]
+    #[Groups(['getDetailCoupon', 'getCoupons'])]
     private array $roles = [];
 
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Groups(['getDetailCoupon', 'getCoupons'])]
     private ?string $password = null;
 
     #[ORM\Column(length: 100, nullable: true)]
+    #[Groups(['getDetailCoupon', 'getCoupons'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 100, nullable: true)]
+    #[Groups(['getDetailCoupon', 'getCoupons'])]
     private ?string $adresse = null;
 
     #[ORM\Column(length: 5, nullable: true)]
+    #[Groups(['getDetailCoupon', 'getCoupons'])]
     private ?string $code_postal = null;
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[Groups(['getDetailCoupon', 'getCoupons'])]
     private ?string $ville = null;
 
     #[ORM\Column(length: 14, nullable: true)]
+    #[Groups(['getDetailCoupon', 'getCoupons'])]
     private ?string $siret = null;
 
     #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
+    #[Groups(['getDetailCoupon', 'getCoupons'])]
     private ?\DateTimeImmutable $date_creation = null;
 
     /**

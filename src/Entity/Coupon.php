@@ -3,55 +3,77 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use App\Repository\CouponRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: CouponRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    operations: [
+        new Get(normalizationContext: ['groups' => 'getDetailCoupon']),
+        new GetCollection(normalizationContext: ['groups' => 'getCoupons']),
+    ],
+    paginationEnabled: false,
+)]
 class Coupon
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['getDetailCoupons', 'getCoupons'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 100, nullable: true)]
+    #[Groups(['getDetailCoupon', 'getCoupons'])]
     private ?string $titre = null;
 
     #[ORM\Column(length: 100, nullable: true)]
+    #[Groups(['getDetailCoupon', 'getCoupons'])]
     private ?string $adresse = null;
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[Groups(['getDetailCoupon', 'getCoupons'])]
     private ?string $ville = null;
 
     #[ORM\Column(length: 5, nullable: true)]
+    #[Groups(['getDetailCoupon', 'getCoupons'])]
     private ?string $code_postal = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['getDetailCoupon', 'getCoupons'])]
     private ?float $prix = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['getDetailCoupon', 'getCoupons'])]
     private ?string $conditions = null;
 
     #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
+    #[Groups(['getDetailCoupon', 'getCoupons'])]
     private ?\DateTimeImmutable $date_creation = null;
 
     #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
+    #[Groups(['getDetailCoupon', 'getCoupons'])]
     private ?\DateTimeImmutable $fin_validite = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['getDetailCoupon', 'getCoupons'])]
     private ?string $QR_code = null;
     
     #[ORM\ManyToOne(targetEntity: Acheteur::class, inversedBy: 'coupons')]
+    #[Groups(['getDetailCoupon', 'getCoupons'])]
     private Collection $acheteurs;
 
     #[ORM\ManyToOne(targetEntity: Commerce::class, inversedBy: 'coupons')]
+    #[Groups(['getDetailCoupon', 'getCoupons'])]
     private ?Commerce $commerce = null;
 
     #[ORM\ManyToOne(inversedBy: 'coupons')]
+    #[Groups(['getDetailCoupon', 'getCoupons'])]
     private ?Association $association = null;
 
     /**

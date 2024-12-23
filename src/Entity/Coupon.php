@@ -6,8 +6,6 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Repository\CouponRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
@@ -63,10 +61,10 @@ class Coupon
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     #[Groups(['getDetailCoupon', 'getCoupons'])]
     private ?string $QR_code = null;
-    
+
     #[ORM\ManyToOne(targetEntity: Acheteur::class, inversedBy: 'coupons')]
     #[Groups(['getDetailCoupon', 'getCoupons'])]
-    private Collection $acheteurs;
+    private ?Acheteur $acheteur = null;
 
     #[ORM\ManyToOne(targetEntity: Commerce::class, inversedBy: 'coupons')]
     #[Groups(['getDetailCoupon', 'getCoupons'])]
@@ -75,14 +73,6 @@ class Coupon
     #[ORM\ManyToOne(inversedBy: 'coupons')]
     #[Groups(['getDetailCoupon', 'getCoupons'])]
     private ?Association $association = null;
-
-    /**
-     * @param Collection $acheteurs
-     */
-    public function __construct()
-    {
-        $this->acheteurs = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -197,49 +187,17 @@ class Coupon
         return $this;
     }
 
-    /**
-     * @return Collection<int, Acheteur>
-     */
-    public function getAcheteurs(): Collection
+    public function getAcheteur(): ?Acheteur
     {
-        return $this->acheteurs;
+        return $this->acheteur;
     }
 
-    public function addAcheteur(Acheteur $acheteur): static
+    public function setAcheteur(?Acheteur $acheteur): static
     {
-        if (!$this->acheteurs->contains($acheteur)) {
-            $this->acheteurs->add($acheteur);
-            $acheteur->setCoupon($this);
-        }
+        $this->acheteur = $acheteur;
 
         return $this;
     }
-
-    public function removeAcheteur(Acheteur $acheteur): static
-    {
-        if ($this->acheteurs->removeElement($acheteur)) {
-            // set the owning side to null (unless already changed)
-            if ($acheteur->getCoupon() === $this) {
-                $acheteur->setCoupon(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /*
-    public function getCoupons(): ?Association
-    {
-        return $this->coupons;
-    }
-
-    public function setCoupons(?Association $coupons): static
-    {
-        $this->coupons = $coupons;
-
-        return $this;
-    }
-    */
 
     public function getCommerce(): ?Commerce
     {

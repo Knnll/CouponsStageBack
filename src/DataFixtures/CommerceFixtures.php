@@ -19,6 +19,7 @@ class CommerceFixtures extends Fixture
         $decathlon -> setEmail('decathlon@gmail.com');
         $password= $this->userPasswordHasher->hashPassword($decathlon, 'mdpdecathlon');
         $decathlon->setPassword($password);
+        $decathlon -> setRoles(['ROLE_USER', 'ROLE_COMMERCE']);
         $decathlon -> setAdresse('3 rue du Moulin');
         $decathlon -> setVille('Chantepie');
         $decathlon -> setCodePostal('35135');
@@ -30,6 +31,7 @@ class CommerceFixtures extends Fixture
         $kartExpo -> setEmail('karting@gmail.com');
         $password= $this->userPasswordHasher->hashPassword($kartExpo, 'mdpkarting');
         $kartExpo->setPassword($password);
+        $kartExpo -> setRoles(['ROLE_USER', 'ROLE_COMMERCE']);
         $kartExpo -> setAdresse('11 rue la Haie Gautrais');
         $kartExpo -> setVille('Bruz');
         $kartExpo -> setCodePostal('35170');
@@ -41,6 +43,7 @@ class CommerceFixtures extends Fixture
         $enfantsTerribles -> setEmail('enfantsterribles@gmail.com');
         $password= $this->userPasswordHasher->hashPassword($enfantsTerribles, 'mdpenfantsterribles');
         $enfantsTerribles->setPassword($password);
+        $enfantsTerribles -> setRoles(['ROLE_USER','ROLE_COMMERCE']);
         $enfantsTerribles -> setAdresse('30 rue d\'Antrain');
         $enfantsTerribles -> setVille('Rennes');
         $enfantsTerribles -> setCodePostal('35000');
@@ -52,6 +55,7 @@ class CommerceFixtures extends Fixture
         $laFromotte -> setEmail('lafromotte@gmail.com');
         $password= $this->userPasswordHasher->hashPassword($laFromotte, 'mdplafromotte');
         $laFromotte->setPassword($password);
+        $laFromotte -> setRoles(['ROLE_USER','ROLE_COMMERCE']);
         $laFromotte -> setAdresse('4 Avenue Jorge Semprun');
         $laFromotte -> setVille('Rennes');
         $laFromotte -> setCodePostal('35000');
@@ -63,6 +67,7 @@ class CommerceFixtures extends Fixture
         $getOut -> setEmail('getout@gmail.com');
         $password= $this->userPasswordHasher->hashPassword($getOut, 'mdpgetout');
         $getOut->setPassword($password);
+        $getOut -> setRoles(['ROLE_USER','ROLE_COMMERCE']);
         $getOut -> setAdresse('14 QUai Duguay Trouin');
         $getOut -> setVille('Rennes');
         $getOut -> setCodePostal('35000');
@@ -74,6 +79,7 @@ class CommerceFixtures extends Fixture
         $boucherie -> setEmail('boucherie@gmail.com');
         $password= $this->userPasswordHasher->hashPassword($boucherie, 'mdpboucherie');
         $boucherie->setPassword($password);
+        $boucherie -> setRoles(['ROLE_USER','ROLE_COMMERCE']);
         $boucherie -> setAdresse('Place Honoré Commereuc');
         $boucherie -> setVille('Rennes');
         $boucherie -> setCodePostal('35000');
@@ -85,6 +91,7 @@ class CommerceFixtures extends Fixture
         $roazhonPark -> setEmail('roazhonpark@gmail.com');
         $password= $this->userPasswordHasher->hashPassword($roazhonPark, 'mdproazhonpark');
         $roazhonPark->setPassword($password);
+        $roazhonPark -> setRoles(['ROLE_USER','ROLE_COMMERCE']);
         $roazhonPark -> setAdresse('111 rue de Lorient');
         $roazhonPark -> setVille('Rennes');
         $roazhonPark -> setCodePostal('35000');

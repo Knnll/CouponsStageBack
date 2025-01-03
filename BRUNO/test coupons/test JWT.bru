@@ -1,0 +1,19 @@
+meta {
+  name: test JWT
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:8000/api/login_check
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {"username":"cannelle@gmail.com","password":"mdpcannelle"}
+}

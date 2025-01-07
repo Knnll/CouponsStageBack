@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Acheteur;
 use App\Entity\Association;
 use App\Entity\Commerce;
+use App\Entity\User;
 use App\Entity\Coupon;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -18,19 +19,37 @@ class CouponFixtures extends Fixture implements DependentFixtureInterface
         $kartExpo = $this->getReference('Kart Expo', Commerce::class);
         $enfantsTerribles = $this->getReference('Enfants Terribles', Commerce::class);
         $laFromotte = $this->getReference('La Fromotte', Commerce::class);
-        $getOut = $this->getReference('Get OUT !', Commerce::class);
+        /*$getOut = $this->getReference('Get OUT !', Commerce::class);
         $boucherie = $this->getReference('La Boucherie Rennaise', Commerce::class);
-        $roazhonPark = $this->getReference('Roazhon Park', Commerce::class);
+        $roazhonPark = $this->getReference('Roazhon Park', Commerce::class);*/
         $assoRoller = $this->getReference('Roller Derby Rennes', Association::class);
         $assoFoot = $this->getReference('USBP US Football', Association::class);
         $assoHandi = $this->getReference('Handisport Rennes Club', Association::class);
-        $assoBadminton = $this->getReference('Rec Badminton', Association::class);
+        //$assoBadminton = $this->getReference('Rec Badminton', Association::class);
         $assoJudo = $this->getReference('Passion Judo 35', Association::class);
-        $cannelle = $this->getReference('Cannelle', Acheteur::class);
+        /*$cannelle = $this->getReference('Cannelle', Acheteur::class);
         $vincent = $this->getReference('Vincent', Acheteur::class);
         $francois = $this->getReference('Francois', Acheteur::class);
-        $lea = $this->getReference('Lea', Acheteur::class);
-        $denis = $this->getReference('Denis', Acheteur::class);
+        $lea = $this->getReference('Lea', Acheteur::class);*/
+
+        /*
+        $decathlon = $this->getReference('commerceDecathlon', User::class);
+        $kartExpo = $this->getReference('karting', User::class);
+        $enfantsTerribles = $this->getReference('enfantsterribles', User::class);
+        $laFromotte = $this->getReference('lafromotte', User::class);
+        $getOut = $this->getReference('getout', User::class);
+        $boucherie = $this->getReference('boucherie', User::class);
+        $roazhonPark = $this->getReference('roazhonpark', User::class);
+        $assoRoller = $this->getReference('userAssoRoller', User::class);
+        $assoFoot = $this->getReference('userFoot', User::class);
+        $assoHandi = $this->getReference('userHandi', User::class);
+        $assoBadminton = $this->getReference('userBadminton', User::class);
+        $assoJudo = $this->getReference('userJudo', User::class);
+        $cannelle = $this->getReference('userCannelle', User::class);
+        $vincent = $this->getReference('userVincent', User::class);
+        $francois = $this->getReference('userFrancois', User::class);
+        $lea = $this->getReference('userLea', User::class);
+        */
 
         $couponDecathlon = new Coupon();
         $couponDecathlon -> setTitre('10€ de réduction sur les protections de rollers ');

@@ -3,22 +3,21 @@
 namespace App\DataFixtures;
 
 use App\Entity\Association;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class AssociationFixtures extends Fixture
+class AssociationFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function  __construct(private readonly UserPasswordHasherInterface $userPasswordHasher) {}
+    public function  __construct() {}
 
     public function load(ObjectManager $manager): void
     {
         $assoRoller = new Association();
         $assoRoller -> setNom('Roller Derby Rennes');
-        $assoRoller -> setEmail('rollerdernnes@gmail.com');
-        $password= $this->userPasswordHasher->hashPassword($assoRoller, 'mdprollerderby');
-        $assoRoller -> setPassword($password);
-        $assoRoller -> setRoles(['ROLE_USER', 'ROLE_ASSOCIATION']);
+        $assoRoller -> setUser($this->getReference('userAssoRoller', User::class));
         $assoRoller -> setAdresse('2 rue du Bosphore');
         $assoRoller -> setVille('Rennes');
         $assoRoller -> setCodePostal('35200');
@@ -27,10 +26,7 @@ class AssociationFixtures extends Fixture
 
         $assoFoot = new Association();
         $assoFoot -> setNom('USBP US Football');
-        $assoFoot -> setEmail('foot@gmail.com');
-        $password= $this->userPasswordHasher->hashPassword($assoFoot, 'mdpfoot');
-        $assoFoot->setPassword($password);
-        $assoFoot -> setRoles(['ROLE_USER', 'ROLE_ASSOCIATION']);
+        $assoFoot -> setUser($this->getReference('userFoot', User::class));
         $assoFoot -> setAdresse('2 rue de Rennes');
         $assoFoot -> setVille('Bédée');
         $assoFoot -> setCodePostal('35137');
@@ -39,10 +35,7 @@ class AssociationFixtures extends Fixture
 
         $assoHandi = new Association();
         $assoHandi -> setNom('Handisport Rennes Club');
-        $assoHandi -> setEmail('handisport@gmail.com');
-        $password= $this->userPasswordHasher->hashPassword($assoHandi, 'mdphandisport');
-        $assoHandi ->setPassword($password);
-        $assoHandi -> setRoles(['ROLE_USER', 'ROLE_ASSOCIATION']);
+        $assoHandi -> setUser($this->getReference('userHandi', User::class));
         $assoHandi -> setAdresse('12 Allée le Roséno');
         $assoHandi -> setVille('Rennes');
         $assoHandi -> setCodePostal('35200');
@@ -51,10 +44,7 @@ class AssociationFixtures extends Fixture
 
         $assoBadminton = new Association();
         $assoBadminton -> setNom('Rec Badminton');
-        $assoBadminton -> setEmail('badminton@gmail.com');
-        $password= $this->userPasswordHasher->hashPassword($assoBadminton, 'mdpbadminton');
-        $assoBadminton->setPassword($password);
-        $assoBadminton->setRoles(['ROLE_USER', 'ROLE_ASSOCIATION']);
+        $assoBadminton -> setUser($this->getReference('userBadminton', User::class));
         $assoBadminton -> setAdresse('23 Avenue Professeur Charles Foulon');
         $assoBadminton -> setVille('Rennes');
         $assoBadminton -> setCodePostal('35700');
@@ -63,10 +53,7 @@ class AssociationFixtures extends Fixture
 
         $assoJudo = new Association();
         $assoJudo -> setNom('Passion Judo 35');
-        $assoJudo -> setEmail('judo@gmail.com');
-        $password= $this->userPasswordHasher->hashPassword($assoJudo, 'mdpjudo');
-        $assoJudo->setPassword($password);
-        $assoJudo->setRoles(['ROLE_USER', 'ROLE_ASSOCIATION']);
+        $assoJudo -> setUser($this->getReference('userJudo', User::class));
         $assoJudo -> setAdresse('124 rue Eugène Pottier');
         $assoJudo -> setVille('Rennes');
         $assoJudo -> setCodePostal('35000');
@@ -80,5 +67,10 @@ class AssociationFixtures extends Fixture
         $this -> addReference('Passion Judo 35', $assoJudo);
 
         $manager->flush();
+    }
+
+    public function getDependencies(): array
+    {
+        return [UserFixtures::class];
     }
 }

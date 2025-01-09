@@ -9,14 +9,17 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class AcheteurFixtures extends Fixture implements DependentFixtureInterface
+class AcheteurFixtures extends Fixture
 {
-    public function  __construct() {}
+    public function  __construct(private readonly UserPasswordHasherInterface $userPasswordHasher) {}
 
     public function load(ObjectManager $manager): void
     {
         $cannelle = new Acheteur();
-        $cannelle->setUser($this->getReference('userCannelle', User::class));
+        $cannelle -> setEmail('cannelle@gmail.com');
+        $cannelle -> setRoles(['ROLE_USER', 'ROLE_ACHETEUR']);
+        $password = $this->userPasswordHasher->hashPassword($cannelle, 'mdpcannelle');
+        $cannelle -> setPassword($password);
         $cannelle -> setNom('Hardy');
         $cannelle -> setPrenom('Cannelle');
         $cannelle -> setVille('Rennes');
@@ -25,8 +28,11 @@ class AcheteurFixtures extends Fixture implements DependentFixtureInterface
         $manager -> persist($cannelle);
 
         $vincent = new Acheteur();
+        $vincent -> setEmail('vincent@gmail.com');
+        $vincent -> setRoles(['ROLE_USER', 'ROLE_ACHETEUR']);
+        $password = $this->userPasswordHasher->hashPassword($vincent, 'mdpvincent');
+        $vincent -> setPassword($password);
         $vincent -> setNom('Monssieur');
-        $vincent -> setUser($this->getReference('userVincent', User::class));
         $vincent -> setPrenom('Vincent');
         $vincent -> setVille('Rennes');
         $vincent -> setCodePostal('35000');
@@ -34,8 +40,11 @@ class AcheteurFixtures extends Fixture implements DependentFixtureInterface
         $manager -> persist($vincent);
 
         $francois = new Acheteur();
+        $francois -> setEmail('françois@gmail.com');
+        $francois -> setRoles(['ROLE_USER', 'ROLE_ACHETEUR']);
+        $password = $this->userPasswordHasher->hashPassword($francois, 'mdpfrançois');
+        $francois ->setPassword($password);
         $francois -> setNom('Morin');
-        $francois -> setUser($this->getReference('userFrancois', User::class));
         $francois -> setPrenom('Francois');
         $francois -> setVille('Rennes');
         $francois -> setCodePostal('35000');
@@ -43,8 +52,11 @@ class AcheteurFixtures extends Fixture implements DependentFixtureInterface
         $manager -> persist($francois);
 
         $lea = new Acheteur();
+        $lea -> setEmail('léa@gmail.com');
+        $lea -> setRoles(['ROLE_USER', 'ROLE_ACHETEUR']);
+        $password = $this->userPasswordHasher->hashPassword($lea, 'mdpléa');
+        $lea ->setPassword($password);
         $lea -> setNom('Thomas');
-        $lea -> setUser($this->getReference('userLea', User::class));
         $lea -> setPrenom('Lea');
         $lea -> setVille('Rennes');
         $lea -> setCodePostal('35000');
@@ -58,10 +70,5 @@ class AcheteurFixtures extends Fixture implements DependentFixtureInterface
         $this -> addReference('Lea', $lea);
 
         $manager->flush();
-    }
-
-    public function getDependencies(): array
-    {
-        return [UserFixtures::class];
     }
 }

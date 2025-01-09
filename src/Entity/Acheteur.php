@@ -12,13 +12,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: AcheteurRepository::class)]
 #[ApiResource]
-class Acheteur
+class Acheteur extends User
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $nom = null;
 
@@ -43,17 +38,8 @@ class Acheteur
     #[ORM\OneToMany(targetEntity: Coupon::class, mappedBy: 'acheteur')]
     private Collection $coupons;
 
-    #[ORM\OneToOne(inversedBy: 'acheteur', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
-
     public function __construct() {
         $this->coupons = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getNom(): ?string
@@ -140,15 +126,4 @@ class Acheteur
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(User $user): static
-    {
-        $this->user = $user;
-
-        return $this;
-    }
 }

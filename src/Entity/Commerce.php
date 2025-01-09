@@ -12,13 +12,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CommerceRepository::class)]
 #[ApiResource]
-class Commerce
+class Commerce extends User
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
     #[ORM\Column(length: 100, nullable: true)]
     #[Groups(['getDetailCoupon', 'getCoupons'])]
     private ?string $nom = null;
@@ -45,18 +40,9 @@ class Commerce
     #[ORM\OneToMany(targetEntity: Coupon::class, mappedBy: 'commerce')]
     private Collection $coupons;
 
-    #[ORM\OneToOne(inversedBy: 'commerce', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
-
     public function __construct()
     {
         $this->coupons = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     /**
@@ -158,15 +144,4 @@ class Commerce
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(User $user): static
-    {
-        $this->user = $user;
-
-        return $this;
-    }
 }

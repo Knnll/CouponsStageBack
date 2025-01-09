@@ -9,15 +9,18 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class AssociationFixtures extends Fixture implements DependentFixtureInterface
+class AssociationFixtures extends Fixture
 {
-    public function  __construct() {}
+    public function  __construct(private readonly UserPasswordHasherInterface $userPasswordHasher) {}
 
     public function load(ObjectManager $manager): void
     {
         $assoRoller = new Association();
+        $assoRoller -> setEmail('rollerdernnes@gmail.com');
+        $assoRoller -> setRoles(['ROLE_USER', 'ROLE_ASSOCIATION']);
+        $password = $this->userPasswordHasher->hashPassword($assoRoller, 'mdprollerderby');
+        $assoRoller -> setPassword($password);
         $assoRoller -> setNom('Roller Derby Rennes');
-        $assoRoller -> setUser($this->getReference('userAssoRoller', User::class));
         $assoRoller -> setAdresse('2 rue du Bosphore');
         $assoRoller -> setVille('Rennes');
         $assoRoller -> setCodePostal('35200');
@@ -25,8 +28,11 @@ class AssociationFixtures extends Fixture implements DependentFixtureInterface
         $manager -> persist($assoRoller);
 
         $assoFoot = new Association();
+        $assoFoot -> setEmail('foot@gmail.com');
+        $assoFoot -> setRoles(['ROLE_USER', 'ROLE_ASSOCIATION']);
+        $password = $this->userPasswordHasher->hashPassword($assoFoot, 'mdpfoot');
+        $assoFoot->setPassword($password);
         $assoFoot -> setNom('USBP US Football');
-        $assoFoot -> setUser($this->getReference('userFoot', User::class));
         $assoFoot -> setAdresse('2 rue de Rennes');
         $assoFoot -> setVille('Bédée');
         $assoFoot -> setCodePostal('35137');
@@ -34,8 +40,11 @@ class AssociationFixtures extends Fixture implements DependentFixtureInterface
         $manager -> persist($assoFoot );
 
         $assoHandi = new Association();
+        $assoHandi -> setEmail('handisport@gmail.com');
+        $assoHandi -> setRoles(['ROLE_USER', 'ROLE_ASSOCIATION']);
+        $password= $this->userPasswordHasher->hashPassword($assoHandi, 'mdphandisport');
+        $assoHandi ->setPassword($password);
         $assoHandi -> setNom('Handisport Rennes Club');
-        $assoHandi -> setUser($this->getReference('userHandi', User::class));
         $assoHandi -> setAdresse('12 Allée le Roséno');
         $assoHandi -> setVille('Rennes');
         $assoHandi -> setCodePostal('35200');
@@ -43,8 +52,11 @@ class AssociationFixtures extends Fixture implements DependentFixtureInterface
         $manager -> persist($assoHandi);
 
         $assoBadminton = new Association();
+        $assoBadminton -> setEmail('badminton@gmail.com');
+        $assoBadminton -> setRoles(['ROLE_USER', 'ROLE_ASSOCIATION']);
+        $password= $this->userPasswordHasher->hashPassword($assoBadminton, 'mdpbadminton');
+        $assoBadminton->setPassword($password);
         $assoBadminton -> setNom('Rec Badminton');
-        $assoBadminton -> setUser($this->getReference('userBadminton', User::class));
         $assoBadminton -> setAdresse('23 Avenue Professeur Charles Foulon');
         $assoBadminton -> setVille('Rennes');
         $assoBadminton -> setCodePostal('35700');
@@ -52,8 +64,11 @@ class AssociationFixtures extends Fixture implements DependentFixtureInterface
         $manager -> persist($assoBadminton);
 
         $assoJudo = new Association();
+        $assoJudo -> setEmail('judo@gmail.com');
+        $assoJudo -> setRoles(['ROLE_USER', 'ROLE_ASSOCIATION']);
+        $password= $this->userPasswordHasher->hashPassword($assoJudo, 'mdpjudo');
+        $assoJudo->setPassword($password);
         $assoJudo -> setNom('Passion Judo 35');
-        $assoJudo -> setUser($this->getReference('userJudo', User::class));
         $assoJudo -> setAdresse('124 rue Eugène Pottier');
         $assoJudo -> setVille('Rennes');
         $assoJudo -> setCodePostal('35000');
@@ -67,10 +82,5 @@ class AssociationFixtures extends Fixture implements DependentFixtureInterface
         $this -> addReference('Passion Judo 35', $assoJudo);
 
         $manager->flush();
-    }
-
-    public function getDependencies(): array
-    {
-        return [UserFixtures::class];
     }
 }

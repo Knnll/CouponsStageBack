@@ -61,7 +61,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function recupererInfosUtilisateur(string $email)
     {
         $queryBuilder = $this->createQueryBuilder('user')
-            ->where('user.email = :email')->setParameter('email', $email)->addSelect('user.email', 'user.id');
+            ->where('user.email = :email')->setParameter('email', $email)->addSelect( 'user.id');
         $query = $queryBuilder->getQuery();
         return $query->execute();
     }

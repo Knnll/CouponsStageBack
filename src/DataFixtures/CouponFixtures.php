@@ -60,7 +60,7 @@ class CouponFixtures extends Fixture implements DependentFixtureInterface
         $couponDecathlon -> setCodePostal('35135');
         $couponDecathlon -> setConditions('Sous conditions de 40€ d\'achats');
         $couponDecathlon -> setDateCreation(new \DateTimeImmutable('2024-11-05'));
-        $couponDecathlon -> setFinValidite(new \DateTimeImmutable('2024-12-31'));
+        $couponDecathlon -> setFinValidite(new \DateTimeImmutable('2025-04-10'));
         $couponDecathlon -> setPrix(2.50);
         $manager -> persist($couponDecathlon);
 
@@ -73,7 +73,7 @@ class CouponFixtures extends Fixture implements DependentFixtureInterface
         $couponKart -> setCodePostal('35170');
         $couponKart -> setConditions('Pour 2 parties achetées');
         $couponKart -> setDateCreation(new \DateTimeImmutable('2024-10-15'));
-        $couponKart -> setFinValidite(new \DateTimeImmutable('2024-12-31'));
+        $couponKart -> setFinValidite(new \DateTimeImmutable('2025-02-25'));
         $couponKart -> setPrix(5);
         $manager -> persist($couponKart);
 
@@ -85,8 +85,8 @@ class CouponFixtures extends Fixture implements DependentFixtureInterface
         $couponCafe -> setAdresse('30 rue d\'Antrain');
         $couponCafe -> setCodePostal('35000');
         $couponCafe -> setConditions('Pour la réservation d\'un brunch');
-        $couponCafe -> setDateCreation(new \DateTimeImmutable('2024-12-01'));
-        $couponCafe -> setFinValidite(new \DateTimeImmutable('2024-12-31'));
+        $couponCafe -> setDateCreation(new \DateTimeImmutable('2025-02-01'));
+        $couponCafe -> setFinValidite(new \DateTimeImmutable('2025-05-01'));
         $couponCafe -> setPrix(2.50);
         $manager -> persist($couponCafe);
 
@@ -99,7 +99,7 @@ class CouponFixtures extends Fixture implements DependentFixtureInterface
         $couponFromage -> setCodePostal('35000');
         $couponFromage -> setConditions('Pour l\'achat d\'un plateau de fromages à composer');
         $couponFromage -> setDateCreation(new \DateTimeImmutable('2024-12-10'));
-        $couponFromage -> setFinValidite(new \DateTimeImmutable('2024-12-24'));
+        $couponFromage -> setFinValidite(new \DateTimeImmutable('2025-03-15'));
         $couponFromage -> setPrix(3);
         $manager -> persist($couponFromage);
 

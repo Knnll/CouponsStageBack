@@ -40,9 +40,9 @@ class AcheteurFixtures extends Fixture
         $manager -> persist($vincent);
 
         $francois = new Acheteur();
-        $francois -> setEmail('françois@gmail.com');
+        $francois -> setEmail('francois@gmail.com');
         $francois -> setRoles(['ROLE_USER', 'ROLE_ACHETEUR']);
-        $password = $this->userPasswordHasher->hashPassword($francois, 'mdpfrançois');
+        $password = $this->userPasswordHasher->hashPassword($francois, 'mdpfrancois');
         $francois ->setPassword($password);
         $francois -> setNom('Morin');
         $francois -> setPrenom('Francois');
@@ -52,9 +52,9 @@ class AcheteurFixtures extends Fixture
         $manager -> persist($francois);
 
         $lea = new Acheteur();
-        $lea -> setEmail('léa@gmail.com');
+        $lea -> setEmail('lea@gmail.com');
         $lea -> setRoles(['ROLE_USER', 'ROLE_ACHETEUR']);
-        $password = $this->userPasswordHasher->hashPassword($lea, 'mdpléa');
+        $password = $this->userPasswordHasher->hashPassword($lea, 'mdplea');
         $lea ->setPassword($password);
         $lea -> setNom('Thomas');
         $lea -> setPrenom('Lea');
